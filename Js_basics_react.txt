@@ -1,0 +1,249 @@
+# Java Script Basics and Syntax - React
+
+# React Native Fundamentals
+
+	* React Native runs on 'react' a popular open source library for building user interfaces with JavaScript.
+	
+	* Concepts of Behind React :
+
+		1. Components
+		2. JSX
+		3. Props
+		4. State
+
+	# Components :
+	
+		* There are two types of components
+		
+			1. Function Component
+			2. Class Component
+
+	@ Funtion Component : (Example Program)
+
+		import React from 'react';
+		import { Text } from 'react-native';
+
+		const Cat = () => {
+ 			 return (
+   				 <Text>Hello, I am your cat!</Text>
+ 			 );
+			}
+
+		export default Cat;
+
+	@ Class Component : (Example Program)
+
+		import React, { Component } from 'react';
+		import { Text } from 'react-native';
+
+		class Cat extends Component {
+ 		 		render() {
+    					return (
+      						<Text>Hello, I am your cat!</Text>
+  				  );
+ 				 }
+				}
+
+		export default Cat;
+
+	@ Function Component Program Details :
+
+		-> First use JS 'import' to import react and react native 'Text' core component.
+
+			> const Cat = () => {};
+
+		-> Whatever function component returns is rendered as a react element.
+
+		-> Here the 'Cat' component will render a <Text> element :
+	
+			> const Cat = () => {
+				return <Text> Hello, I am your cat!</Text>
+			};
+			
+			> export default Cat;
+		
+		-> You can export your function component with JS export default.
+
+	@ Class Component Program Details :
+
+		-> Here your additionally import 'Component' from react. The component starts as a class extending component instead of as a function
+
+		-> Class component have render() function. Whatever is returned inside it is rendered as a react element.
+
+		-> And as with function components, you can export your class component.
+
+# JSX :
+
+	-> JSX stands for Javascript XML. JSX allows us to write HTML in react JSX makes. It is easier to write and add HTML in react.
+	
+	-> react and react-native use JSX, a syntax that lets you write elements inside JS.
+
+	-> Fundamentally, JSX just provides syntatic sugar for the 
+	
+		> React.createElement (component, props,....children) function.
+
+	-> Any JS expression will work between curly braces, including functions call like
+
+		> {getFullName ("Rum", "Tum", "Tugger") };
+
+		import React from 'react';
+		import { Text } from 'react-native';
+
+		const getFullName = (firstName, secondName, thirdName) => {
+  			return firstName + " " + secondName + " " + thirdName;
+			}
+
+		const Cat = () => {
+ 	 		return (
+    				<Text>
+      					Hello, I am {getFullName("Rum", "Tum", "Tugger")}!
+    				</Text>
+  			);
+		      }
+
+		export default Cat;		
+
+	-> The curly braces as creating a portal into JS functionality in your JSX. Because JSX is included in the react library.
+
+# Props :
+
+	-> Props is short for properties. Props let you customize react components. For example, here you pass each <Cat> a different 'name' for Cat to render.
+
+		import React from 'react';
+		import { Text, View } from 'react-native';
+
+		const Cat = (props) => {
+  			return (
+    				<View>
+      					<Text>Hello, I am {props.name}!</Text>
+    				</View>
+  			);
+		       }
+
+		const Cafe = () => {
+  			return (
+    				<View>
+      					<Cat name="Maru" />
+      					<Cat name="Jellylorum" />
+      					<Cat name="Spot" />
+    				</View>
+  			);
+		       }
+
+		export default Cafe;
+
+	-> Most of react native core components can be customized with props too. For, when using Image, you pass it a prop named source to define what image it show :
+
+		import React from 'react';
+		import { Text, View, Image } from 'react-native';
+
+		const CatApp = () => {
+  			return (
+    				<View>
+      					<Image
+        					source={{uri: "https://reactnative.dev/docs/assets/p_cat1.png"}}
+        					style={{width: 200, height: 200}}
+     					 />
+      					<Text>Hello, I am your cat!</Text>
+   				 </View>
+  			);
+		       }
+
+		export default CatApp;
+
+	* Note :
+
+		-> The double curly braces {{ }} surrounding styles's width and height in JSX, JS values are referenced with {}. This is handy if your are passing something other than a String as props, like an array number.
+
+		-> <cat food = { ["fish", "kibble"] } age = {2} />. However JS objects also denoted with curly braces : {width : 200, height : 200}.
+
+		-> Therefore, to pass a JS object in JSX, you must wrap the object in another pair of curly braces : {{width : 200, height : 200}}.
+
+# State :
+
+	-> You can build many things with props and the core components Text, Image and View! But to build something interactive, you will need state.
+	
+	-> As general rule, use props to configure a component when it renders. Use state to keep track of any component data that you expect to change over time.
+
+	-> You can add state to a component by calling react's 'useState' Hook. A Hook is a kind of that lets you "hook into" react features. 'useState' is Hook that lets you add state to function components.
+
+		import React, { useState } from "react";
+		import { Button, Text, View } from "react-native";
+
+		const Cat = (props) => {
+  			const [isHungry, setIsHungry] = useState(true);
+
+  				return (
+    					<View>
+      						<Text>
+        						I am {props.name}, and I am {isHungry ? "hungry" : "full"}!
+      						</Text>
+      						
+						<Button
+        						onPress={() => {
+          							setIsHungry(false);
+        					}}
+        						disabled={!isHungry}
+        							title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
+      						/>
+    					</View>
+  				);
+			       }
+
+				const Cafe = () => {
+  					return (
+    						<View>
+      							<Cat name="Munkustrap" />
+      							<Cat name="Spot" />
+    						</View>
+  					);
+				       }
+
+				export default Cafe;
+
+	-> First you will want to import useState from react like so :
+
+		> import React, { useState } from 'react';
+
+	-> Then, we declare the component's state by calling useState inside its function. In this example useState creates and isHungry state varible.
+
+	-> You can use useState to track any kind of dat : Strings, numbers, Booleans, arrays, objects.
+
+	@ Calling 'useState' does two things
+
+		1. It creates a 'State Variable' with an initial value - in this case the state variable is isHungry and its initial value is true.
+		
+		2. It creates a function to set that state variables value - setIsHungry.
+
+
+		> <Button 
+			onPress = {() => {
+				setIsHungry(false);
+			}}
+		  />
+
+	-> Now, when someone presses the button, onPress will fire, calling the setIsHungry(false). This sets the state variable 'isHungry' to false.
+	
+	-> When, isHungry is false, the Button's disabled prop is set to true and its title also changes.
+
+	
+		> <Button
+			onPress = { () => {
+				//..
+			disabled = {!isHungry}
+				title = {isHungry ? 'Pour me some milk, Please!' : 'Thank You!'}
+		  />
+
+	-> You might have noticed that although 'isHungry' is a const, it is seemingly reassignable! what is happening is when a state-setting function like setIsHungry is called, its component will re-render.
+	
+	-> In this case the Cat function will run-again, and this time 'useState' will give us the next value of 'isHungry'.
+
+
+
+	@These are Fundamentals of react-native
+
+	@This document refer from this below link
+
+	https://reactnative.dev/docs/intro-react
+
+	Thank You !
