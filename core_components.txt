@@ -1,0 +1,284 @@
+# React-Native Core Components :
+
+	* Basic Core Components :
+
+		1. View
+		2. Text
+		3. Image
+		4. TextInput
+		5. ScrollView
+		6. StyleSheet
+
+	@ View :
+
+		-> The most fundamental components for building a UI, view is container support layout with flexbox, style, some thouch handling and accessability controls.
+		
+		-> View is equivalent on whatever platform react native is running on, whether that is a UIView, <div>, android.view, etc.
+		
+		-> View is designed to be nested inside other views and can have 0 to many children of any type.
+		
+		-> Here is, the example to create a view that wraps two boxes with color and text component in a row with padding.
+	
+	@ Program :
+
+		import React from "react";
+		import { View, Text } from "react-native";
+
+		const ViewBoxesWithColorAndText = () => {
+  				return (
+    					<View
+      						style={{
+        						flexDirection: "row",
+        						height: 100,
+        						padding: 20
+      						}}
+      
+    					>
+      					<View style={{ backgroundColor: "blue", flex: 0.3 }} />
+      					<View style={{ backgroundColor: "red", flex: 0.5 }} />
+      					<Text>Hello World!</Text>
+    					</View>
+  				);
+			};
+
+		export default ViewBoxesWithColorAndText;
+
+
+	@ Text :
+
+		-> A react component for displaying Text.
+
+		-> Text supports nesting, styling and touch handling.
+
+	@ Nested Text :
+
+		-> Both Android and iOS allow you to display formatted text by annotating ranges of a string with specific formatting like bold or colored text.
+		
+		-> In this practice, this is very tedious.
+
+		-> For react native, we decided to use web paradigm for this where you can nest text to achieve the same effect.
+
+	@ Program :
+
+		import React from 'react';
+		import { Text, StyleSheet } from 'react-native';
+
+		const BoldAndBeautiful = () => {
+  				return (
+    					<Text style={styles.baseText}>
+      						I 
+      					<Text style={styles.innerText}> am </Text>
+      
+        				<Text style={styles.in1Text}>Renganathan</Text>
+    				</Text>
+  				);
+				};
+
+		const styles = StyleSheet.create({
+  				baseText: {
+    					fontWeight: 'bold'
+  					},
+  				innerText: {
+    					color: 'red'
+  					},
+  
+  				in1Text : {
+    					color : "skyblue"
+  					}
+				});
+
+				export default BoldAndBeautiful;
+
+
+	@ Image :
+
+		-> A react component for displaying different types of images, including network images, static resources, temporary local images, and images from local disk, such as the camera roll.
+
+		-> Note that for network and data images, you will need to manually specify the dimensions of your images!
+
+		-> This example shows fetching and displaying an image from local storage as well as one from network and even from data provided in the uri scheme.
+
+	@ Program :
+
+		
+		import React from 'react';
+		import { View, Image, StyleSheet } from 'react-native';
+
+		const styles = StyleSheet.create({
+  			container: {
+    				paddingTop: 50,
+  			},
+  			stretch: {
+   	 			width: 50,
+    				height: 200,
+    				resizeMode: 'stretch',
+  			},
+  
+  			net :{
+    				width : 200,
+    				height : 300
+  			}
+		});
+
+		const DisplayAnImageWithStyle = () => {
+  					return (
+    				<View style={styles.container}>
+      					<Image
+        					style={styles.stretch}
+        						source={require('@expo/snack-static/react-native-logo.png')}
+     	 			/>
+      
+      				<Image
+        				style={styles.net}
+        					source={{uri : "https://picsum.photos/200/300" }}></Image>
+        
+    				</View>
+  			);
+			}
+
+		export default DisplayAnImageWithStyle;
+
+
+	@ TextInput :
+
+		-> A foundational component for inputting text into the app via a keyboard. 
+
+		-> Props provide configurability for several features, such as auto-correction, auto-capitalization, placeholder text and different keyboard types, such as a numeric keypad.
+
+		-> The most basic use case is to plop down a TextInput and subscribe to the onChangeText events to read the user input. 
+
+		-> The are also other events, such as onSubmitEditing and onFocus that can be subscribed. A minimal example,
+
+	@ Program :
+
+		import React, {useState} from "react";
+		import { SafeAreaView, StyleSheet, TextInput } from "react-native";
+
+		const UselessTextInput = () => {
+  		const [text, onChangeText] = useState("");
+  		const [number, onChangeNumber] = useState(null);
+
+	 	 		return (
+    					<SafeAreaView>
+      						<TextInput
+        						style={styles.input}
+        						onChangeText={onChangeText}
+        						value={text}
+        						placeholder="Enter the Text is Here"
+        
+      						/>
+      						<TextInput
+        						style={styles.input}
+        						onChangeText={onChangeNumber}
+        						value={number}
+        						placeholder="useless placeholder"
+        						keyboardType="numeric"
+      						/>
+    					</SafeAreaView>
+  					);
+					};
+
+		const styles = StyleSheet.create({
+  				input: {
+    					height: 40,
+    					margin: 12,
+    					borderWidth: 1,
+    					color : "yellow",
+    					backgorundColor : "black"
+  				},
+			});
+
+		export default UselessTextInput;
+		
+
+	@ ScrollView :
+
+		-> Component that wrps platform ScrollView while providing integration with touch locking "responder" system.
+
+		-> Keep in mind that ScrollView must have a bounded height in orderr to work, since they contain unbounded-height children into a bounded container.
+
+		-> In order to bound the height of a ScrollView, either set the height of the view directly or make sure all parent views have bounded height.
+
+		-> Forgetting to transfer {flex:1} down the view stack can lead to errors here, which the element inspector makes quick to debug.
+
+		-> ScrollView renders all its react child components at once, but this has a performance downside.
+
+
+	@ Program :
+
+		import React from 'react';
+		import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+
+		const App = () => {
+  			return (
+    				<SafeAreaView style={styles.container}>
+      					<ScrollView style={styles.scrollView}>
+        					<Text style={styles.text}>
+          			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          			minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          			aliquip ex ea commodo consequat. Duis aute irure dolor in
+          			reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          			pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          			culpa qui officia deserunt mollit anim id est laborum.
+        					</Text>
+      					</ScrollView>
+    				</SafeAreaView>
+  			);
+			}
+
+		const styles = StyleSheet.create({
+  				container: {
+    					flex: 1,
+    					paddingTop: StatusBar.currentHeight,
+  				},
+  				scrollView: {
+    					backgroundColor: 'pink',
+    					marginHorizontal: 20,
+  				},
+  				text: {
+    					fontSize: 42,
+ 				 },
+				});
+
+		export default App;
+
+	@ StyleSheet :
+
+		-> A StyleSheet is an abstraction similar to CSS StyleSheets.
+
+	@ Program :
+
+		import React from "react";
+		import { StyleSheet, Text, View } from "react-native";
+
+		const App = () => (
+  			<View style={styles.container}>
+    				<Text style={styles.title}>React Native</Text>
+  			</View>
+			);
+
+		const styles = StyleSheet.create({
+  				container: {
+    					flex: 1,
+    					padding: 24,
+    					backgroundColor: "#eaeaea"
+  				},
+  				title: {
+    					marginTop: 16,
+    					paddingVertical: 8,
+    					borderWidth: 4,
+    					borderColor: "#20232a",
+    					borderRadius: 6,
+    					backgroundColor: "#61dafb",
+    					color: "#20232a",
+    					textAlign: "center",
+    					fontSize: 30,
+    					fontWeight: "bold"
+  				}
+			});
+
+		export default App;
+
+
+		These are the react-native core components basics.!!!	
