@@ -1,0 +1,195 @@
+# React native components - User Interface (both functional and class component)
+
+	* These common user interface controls will render on any platform.
+
+		1. Button
+		
+		2. Switch
+
+	@ Button :
+
+		-> A basic button component that should render nicely on any platfrom.
+		
+		-> Supports a minimal level of customization.
+
+		-> Structure of the Button Component
+
+			<Button
+  				onPress={onPressLearnMore}
+  				title="Learn More"
+  				color="#841584"
+  				accessibilityLabel="Learn more about this purple button"
+			/>
+
+	@ Program :
+
+		import React from 'react';
+		import {View, Text, StyleSheet, SafeAreaView, Button, Alert, ScrollView} from 'react-native';
+
+
+		const myOne = () => (
+
+  			<SafeAreaView style={styles.container}>
+    				<View>
+      					<Text style={styles.myText}> Hi, rengan </Text>
+      
+      						<Button 
+        						title="Press Me"
+        						onPress={() => alert("Are you going Learn Something")
+         
+          						}
+        					color="#841584"
+       	 					/>
+    				</View>
+  			</SafeAreaView>
+
+
+				);
+
+		const styles = StyleSheet.create({
+  				container : {
+    					flex : 1,
+    					justifyContent : 'center',
+    					marginalHorizontal : 16
+  					},
+  				myText : {
+    					textAlign : "center",
+    					justifyContent : "center",
+    					padding : 20,
+    					color : "yellow",
+    					backgroundColor : "black"
+  					}
+  					});
+
+		export default myOne;
+
+	@ TouchableHighlight :
+
+		-> A wrapper for making views respond properly to touches.
+
+		-> On press down, the opacity of the wrapped view is decreased, which allows the underlay color to show through, darkening or tinting the view.
+
+		-> TouchableHighlight must have one child (not zero or more than one). If you wish to have several child components, wrap them in a View.
+
+		-> Here is the TouchableHighlight structure
+
+			function MyComponent(props) {
+  				return (
+    					<View {...props} style={{ flex: 1, backgroundColor: '#fff' }}>
+      						<Text>My Component</Text>
+    					</View>
+  					);
+					}
+
+			<TouchableHighlight
+ 	 			activeOpacity={0.6}
+  				underlayColor="#DDDDDD"
+  				onPress={() => alert('Pressed!')}>
+  				<MyComponent />
+			</TouchableHighlight>;
+
+	@ Program :
+
+		import React, { useState } from "react";
+		import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+
+		const TouchableHighlightExample = () => {
+  			const [count, setCount] = useState(0);
+  			const onPress = () => setCount(count + 1);
+
+  				return (
+    					<View style={styles.container}>
+      						<TouchableHighlight onPress={onPress}>
+        						<View style={styles.button}>
+          							<Text>Press Here</Text>
+        						</View>
+      						</TouchableHighlight>
+      					<View style={styles.countContainer}>
+        					<Text style={styles.countText}>
+          						{count ? count : null}
+        							</Text>
+      						</View>
+    					</View>
+  				);
+			}
+
+		const styles = StyleSheet.create({
+  			container: {
+    				flex: 1,
+    				justifyContent: "center",
+    				paddingHorizontal: 10
+  					},
+  			button: {
+    				alignItems: "center",
+    				backgroundColor: "#DDDDDD",
+    				padding: 10
+  				},
+  			countContainer: {
+    				alignItems: "center",
+    				padding: 10
+  				},
+  			countText: {
+    				color: "#FF00FF"
+  				}
+			});
+
+	export default TouchableHighlightExample;
+
+
+	@ TouchableOpacity :
+
+		-> A wrapper for making views respond properly to touches. 
+
+		-> On press down, the opacity of the wrapped view is decreased, dimming it.
+
+		-> Opacity is controlled by wrapping the children in an Animated.View, which is added to the view hierachy.
+
+		-> Be aware that this can effect layout. Otherwise it's same like a TouchableHighlight.
+
+	@ KeyboardAvoidingView :
+
+		-> It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard.
+
+		-> It can automatically adjust either its height, position or bottom padding based on the keyboard height.
+
+	@ Switch :
+
+		-> Renders a boolean input.
+
+		-> Here is the example program 
+
+	@ Program :
+
+		import React, { useState } from "react";
+		import { View, Switch, StyleSheet } from "react-native";
+
+		const App = () => {
+  			const [isEnabled, setIsEnabled] = useState(false);
+  			const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  				return (
+    					<View style={styles.container}>
+      						<Switch
+        						trackColor={{ false: "#767577", true: "#81b0ff" }}
+        						thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        						ios_backgroundColor="#3e3e3e"
+        						onValueChange={toggleSwitch}
+        						value={isEnabled}
+      						/>
+    					</View>
+  					);
+					}
+
+		const styles = StyleSheet.create({
+  			container: {
+    				flex: 1,
+    				alignItems: "center",
+    				justifyContent: "center"
+  				}	
+				});
+
+		export default App;
+
+	
+	@ These are the react-native user interface component basics!!!
+			
