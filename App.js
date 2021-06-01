@@ -1,7 +1,49 @@
+import { StatusBar } from "expo-status-bar";
 import React, {useState} from 'react';
-import { Button, StyleSheet, Text, TextInput, View, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
-
+import { Button, StyleSheet, Text, TextInput, View, Image, ScrollView, TouchableOpacity, Linking, Animated } from 'react-native';
+import {MaterialCommunityIcons} from '@expo/vector-icons';
 export default function APP () {
+
+      const [data, setData] = useState({
+        isValidUser : true,
+        isValidPassword : true
+      });
+
+      const textHandler = () => ({
+          
+      });
+
+      const handleValidUser = (val) => {
+        if ( val.trim().length >=4 ){
+          setData({
+              ...data,
+              isValidUser : true
+          });
+        } else {
+          setData({
+              ...data,
+              isValidUser : false
+          });
+        }
+      }
+
+      const handleValidPass = (val) => {
+        if ( val.trim().length >= 8){
+          setData({
+              ...data,
+              isValidPassword : true
+          });
+        } else {
+          setData({
+            ...data,
+            isValidPassword : false
+          });
+        }
+      }
+
+      const [show, setShow] = useState(false);
+      const [visible, setVisible] = useState(true);
+
   return (
     
     <View style={styles.container}>
@@ -19,14 +61,39 @@ export default function APP () {
         <TextInput 
           style = {styles.input}
           placeholder = 'Enter Email'
-        />
-
+          onChangeText = {(val) => textHandler(val)}
+          onEndEditing ={(e) => handleValidUser(e.nativeEvent.text)}
+        /> 
+        { data.isValidUser ? null : 
+            <Animated.View animation="fadeInLeft" duration={500}> 
+            <Text style={styles.errorMsg}>Please enter an valid email address!!!</Text>
+        </Animated.View>
+        }
+      
       <Text style={styles.userPass}>Password</Text>
         <TextInput 
-          secureTextEntry = {true}
+          secureTextEntry = {visible}
+          icon={<Text>show</Text>}
+          iconPosition = "right"
           style = {styles.input}
           placeholder = 'Enter Password'
+          onChangeText = {(val) => handleValidPass(val)}
         />
+        <TouchableOpacity style={styles.btn} onPress={() => {
+              setVisible(!visible)
+              setShow(!show)}}>
+          <MaterialCommunityIcons 
+            name = {show == false ? 'eye-outline' : 'eye-off'}
+            color = "grey"
+            size = {24}
+          />
+        </TouchableOpacity>
+        { data.isValidPassword ? null : 
+          <Animated.View animation="fadeInLeft" duration={500}> 
+          <Text style={styles.errorMsg}>Password must be 8 characters long!!!</Text>
+      </Animated.View>
+        }
+         
     <TouchableOpacity>
      
       <View style={styles.buttonContainer}>
@@ -171,5 +238,14 @@ const styles = StyleSheet.create ({
     signTex : {
       fontFamily : "sans-serif",
       color : "blue",
+    },
+    errorMsg : {
+      fontFamily : "sans-serif",
+      color : "red",
+      marginLeft : 20,
+    },
+    btn : {
+      top : -45,
+      right : -300
     }
-  });
+});
