@@ -1,26 +1,4 @@
-# creating a HelloWorldApplication
+ @ Added login-form snapshot here 
+ ![@login-form](https://user-images.githubusercontent.com/84439115/120324851-b6daa500-c304-11eb-81bf-256d88b5ab3a.png)
 
-@ Using expo-cli 
-@ To install expo-cli
-> npm install -g expo-cli
-
-@ To create Project
-> expo init HelloWorldApplication
-> cd HelloWorldApplication
-
-@ Start the application
-> npm start or expo start
-
-# Snapshot Link
-![@output](https://user-images.githubusercontent.com/84439115/119301804-abdaa180-bc80-11eb-8615-0142b2e792fd.png)
-
-# Added JS basics - react 
-[Js_basics_react.txt](https://github.com/renganathanjhoptisol/expo/files/6538256/Js_basics_react.txt)
-
-# Added react-native core components
-[core_components.txt](https://github.com/renganathanjhoptisol/expo/files/6558649/core_components.txt)
-
-
-
-
-
+ 
