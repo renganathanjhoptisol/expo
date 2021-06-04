@@ -1,0 +1,184 @@
+# Pickers in react native
+	-> React Native picker is component which is used to select an item from the multiple choices.
+	
+	-> This is the same as a dropdown option picker is used when we need to provide an alternative to choose from multiple options.
+	
+	-> It is used by importing the 'picker' component from the react-native library.
+
+	@Syntax :
+
+		<Picker>
+			<Picker.Item />
+			 ...
+			 ...
+			<Picker.Item />
+		</Picker>
+
+	@Program :
+
+		import React, { useState } from "react";
+		import { View, Picker, StyleSheet } from "react-native";
+
+		const App = () => {
+  			const [selectedValue, setSelectedValue] = useState("select");
+  				return (
+    					<View style={styles.container}>
+      						<Picker
+        						selectedValue={selectedValue}
+        						style={{ height: 50, width: 150 }}
+        						onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      						>
+        						<Picker.Item label="Select" value="select" />
+        						<Picker.Item label="HTML" value="html" />
+        						<Picker.Item label="CSS" value="css" />
+        						<Picker.Item label="JavaScript" value="js" />
+        						<Picker.Item label="React-Native" value="react-native"/>
+      						</Picker>
+    					</View>
+  				);
+			}
+
+		const styles = StyleSheet.create({
+  			container: {
+    				flex: 1,
+    				paddingTop: 40,
+    				alignItems: "center"
+  				}
+			});
+
+		export default App;
+
+	@ DateTime Picker :
+
+		-> React Native dateTimePicker is an inline datetime picker for android and ios.
+
+		-> It includes date, time and datetime picker modes. 
+		
+		-> The date picker is customizable and supporting different languages.
+
+		-> It's written in native code to acheive the best possible look, feel and performance.
+
+	@ Syntax :
+
+		<DateTimePicker 
+			....
+			....
+		 /> 
+
+	@ Program :
+
+		import React, {useState} from 'react';
+		import {View, Button, Platform, StyleSheet} from 'react-native';
+		import DateTimePicker from '@react-native-community/datetimepicker';
+
+		const App = () => {
+  			const [date, setDate] = useState(new Date(1598051730000));
+  			const [mode, setMode] = useState('date');
+  			const [show, setShow] = useState(false);
+
+  			const onChange = (event, selectedDate) => {
+    		
+			const currentDate = selectedDate || date;
+    				setShow(Platform.OS === 'ios');
+    				setDate(currentDate);
+  				};
+
+  			const showMode = (currentMode) => {
+    				setShow(true);
+    				setMode(currentMode);
+  				};
+
+  			const showDatepicker = () => {
+    				showMode('date');
+  				};
+
+  			const showTimepicker = () => {
+    				showMode('time');
+  				};
+
+  				return (
+    					<View>
+      						<View style={styles.container}>
+        						<Button
+        							onPress={showDatepicker} 
+        							title="Show date picker!" />
+      						</View>
+      						<View style={styles.container1}>
+        						<Button 
+        							onPress={showTimepicker} 
+        							title="Show time picker!" />
+      						</View>
+      						{show && (
+        						<DateTimePicker
+          							testID="dateTimePicker"
+          							value={date}
+          							mode={mode}
+          							is24Hour={true}
+          							display="default"
+          							onChange={onChange}
+        						/>
+      							)}
+    						</View>
+  						);
+					};
+
+		const styles = StyleSheet.create ({
+      			container : {
+      				marginVertical : 20,
+      				height : 40,
+      				marginHorizontal : 20,
+      				justifyContent : "center",
+      				alignItems : "center",
+      				borderRadius : 20,
+      				marginTop : 150
+      				},
+      			container1 : {
+      				marginVertical : 20,
+      				height : 40,
+      				marginHorizontal : 20,
+      				justifyContent : "center",
+      				alignItems : "center",
+      				borderRadius : 20,
+     	 			marginTop : 50
+      				}
+			});
+
+		export default App;
+
+	@ Custom DropDown Picker :
+
+		-> A single or multiple, searchable item picker (dropdown) component for react native which supports both Android & iOS.
+
+	@ program :
+
+		import React, {useState} from 'react';
+		import {View, Button, Platform, StyleSheet} from 'react-native';
+		import ModalDropdown from 'react-native-modal-dropdown';
+
+
+		const App = () => {
+  			return (
+      				<View style={styles.container}>
+        				<ModalDropdown 
+        
+          					options = {['Please Select','HTML', 'CSS','JavaScript','React Native']}
+        
+        				/>
+      				</View>
+  				)
+			};
+
+		const styles = StyleSheet.create ({
+    			container : {
+      			paddingTop : 50,
+      			justifyContent : "center",
+      			alignItems : "center"
+    			}
+			});
+
+		export default App;
+		
+	
+
+
+
