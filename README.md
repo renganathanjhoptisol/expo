@@ -1,4 +1,4 @@
- @ Added login-form snapshot here 
- ![@login-form](https://user-images.githubusercontent.com/84439115/120324851-b6daa500-c304-11eb-81bf-256d88b5ab3a.png)
+ @ Added snapshot here
+ ![@sectionlist](https://user-images.githubusercontent.com/84439115/122396534-b47b7a80-cf95-11eb-8f34-3629b39df0d6.png)
 
  
